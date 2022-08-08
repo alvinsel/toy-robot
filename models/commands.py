@@ -1,8 +1,8 @@
 import re
 
 from config import Config
-from models.robot import Robot
 from models.platform import Platform
+from models.robot import Robot
 
 
 class CommandParser:
@@ -29,7 +29,7 @@ class RobotCommand:
         self.command = command
 
     def invoke(self, *args, **kwargs):
-        """Executes the commands in the sub classes"""
+        """Executes the commands in the subclasses"""
         return
 
 

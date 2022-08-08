@@ -1,15 +1,9 @@
-from unittest.mock import patch, MagicMock, Mock
+from unittest.mock import Mock
 
 import pytest
 
 from models.commands import (
     CommandParser,
-    LeftCommand,
-    RightCommand,
-    MoveCommand,
-    PlaceCommand,
-    ReportCommand,
-    RobotCommand,
 )
 from models.platform import Platform
 from models.robot import Robot
