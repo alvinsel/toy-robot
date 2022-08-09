@@ -30,8 +30,8 @@ however further valid movement commands must still be allowed.
 
 ### Running Robot in using text files ###
 ```bash
->>  python3 file_reader -f <file_name>
->>  python3 file_reader.py -f samples/example1.txt
+>>  python3 run.py -f <file_name>
+>>  python3 run.py -f samples/example1.txt
 ```
 ### Valid Commands ###
 ```bash

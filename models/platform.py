@@ -1,4 +1,13 @@
-class Platform(object):
-    def __init__(self, platform_height, platform_width):
-        self.platform_height = platform_height - 1
-        self.platform_width = platform_width - 1
+from dataclasses import dataclass
+
+
+@dataclass
+class Platform:
+    platform_height: int
+    platform_width: int
+
+    def max_x(self) -> int:
+        return self.platform_width - 1
+
+    def max_y(self) -> int:
+        return self.platform_height - 1
