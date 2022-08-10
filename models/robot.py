@@ -12,10 +12,12 @@ class Robot(object):
 
     def place(self, x_axis, y_axis, facing, platform):
         """Sets the robot initial state"""
-        self.x_axis = x_axis
-        self.y_axis = y_axis
-        self.facing = facing
-        self.platform = platform
+        if self.platform:
+            if self.platform.is_coordinate_available(x_axis=x_axis, y_axis=y_axis):
+                self.x_axis = x_axis
+                self.y_axis = y_axis
+                self.facing = facing
+                self.platform = platform
 
     def left(self):
         """Face the Robot face to the right (North -> West -> South -> East)"""
@@ -39,10 +41,7 @@ class Robot(object):
             new_y_axis = self.y_axis + y_axis_value
 
             # Only move when robot will not fall
-            if (
-                self.platform.platform_height >= new_y_axis >= 0
-                and self.platform.platform_width >= new_x_axis >= 0
-            ):
+            if self.platform.is_coordinate_available(x_axis=new_x_axis, y_axis=new_y_axis):
                 self.x_axis = new_x_axis
                 self.y_axis = new_y_axis
 

@@ -41,27 +41,45 @@ class TestRobot:
         assert test_robot.platform == platform
 
     @pytest.mark.parametrize(
+        "x_axis, y_axis, face, platform",
+        [
+            (6, 6, Direction.NORTH.name, robot_platform_fixture),
+            (10, 10, Direction.SOUTH.name, robot_platform_fixture),
+        ],
+    )
+    def test_place(self, x_axis, y_axis, face, platform):
+
+        test_robot = Robot()
+        test_robot.place(
+            x_axis=x_axis, y_axis=y_axis, facing=face, platform=platform
+        )
+        assert test_robot.x_axis == None
+        assert test_robot.y_axis == None
+        assert test_robot.facing == None
+        assert test_robot.platform == None
+
+    @pytest.mark.parametrize(
         "platform, current_face, expected_face",
         [
             (
-                robot_platform_fixture,
-                Direction.EAST.name,
-                Direction.NORTH.name,
+                    robot_platform_fixture,
+                    Direction.EAST.name,
+                    Direction.NORTH.name,
             ),
             (
-                robot_platform_fixture,
-                Direction.SOUTH.name,
-                Direction.EAST.name,
+                    robot_platform_fixture,
+                    Direction.SOUTH.name,
+                    Direction.EAST.name,
             ),
             (
-                robot_platform_fixture,
-                Direction.WEST.name,
-                Direction.SOUTH.name,
+                    robot_platform_fixture,
+                    Direction.WEST.name,
+                    Direction.SOUTH.name,
             ),
             (
-                robot_platform_fixture,
-                Direction.NORTH.name,
-                Direction.WEST.name,
+                    robot_platform_fixture,
+                    Direction.NORTH.name,
+                    Direction.WEST.name,
             ),
             (None, Direction.NORTH.name, Direction.NORTH.name),
         ],
@@ -77,24 +95,24 @@ class TestRobot:
         "platform, current_face, expected_face",
         [
             (
-                robot_platform_fixture,
-                Direction.NORTH.name,
-                Direction.EAST.name,
+                    robot_platform_fixture,
+                    Direction.NORTH.name,
+                    Direction.EAST.name,
             ),
             (
-                robot_platform_fixture,
-                Direction.EAST.name,
-                Direction.SOUTH.name,
+                    robot_platform_fixture,
+                    Direction.EAST.name,
+                    Direction.SOUTH.name,
             ),
             (
-                robot_platform_fixture,
-                Direction.SOUTH.name,
-                Direction.WEST.name,
+                    robot_platform_fixture,
+                    Direction.SOUTH.name,
+                    Direction.WEST.name,
             ),
             (
-                robot_platform_fixture,
-                Direction.WEST.name,
-                Direction.NORTH.name,
+                    robot_platform_fixture,
+                    Direction.WEST.name,
+                    Direction.NORTH.name,
             ),
             (None, Direction.NORTH.name, Direction.NORTH.name),
         ],
@@ -117,7 +135,7 @@ class TestRobot:
         ],
     )
     def test_move(
-        self, robot_fixture, platform, face, expected_x_axis, expected_y_axis
+            self, robot_fixture, platform, face, expected_x_axis, expected_y_axis
     ):
         if not platform:
             robot_fixture.platform = platform
