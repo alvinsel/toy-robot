@@ -41,7 +41,9 @@ class Robot(object):
             new_y_axis = self.y_axis + y_axis_value
 
             # Only move when robot will not fall
-            if self.platform.is_coordinate_available(x_axis=new_x_axis, y_axis=new_y_axis):
+            if self.platform.is_coordinate_available(
+                x_axis=new_x_axis, y_axis=new_y_axis
+            ):
                 self.x_axis = new_x_axis
                 self.y_axis = new_y_axis
 

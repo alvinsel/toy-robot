@@ -16,8 +16,12 @@ class TestPlatform:
             (4, 3),
         ],
     )
-    def test_is_coordinate_available(self, robot_platform_fixture, x_axis, y_axis):
-        assert robot_platform_fixture.is_coordinate_available(x_axis=x_axis, y_axis=y_axis)
+    def test_is_coordinate_available(
+        self, robot_platform_fixture, x_axis, y_axis
+    ):
+        assert robot_platform_fixture.is_coordinate_available(
+            x_axis=x_axis, y_axis=y_axis
+        )
 
     @pytest.mark.parametrize(
         "x_axis, y_axis",
@@ -27,5 +31,9 @@ class TestPlatform:
             (4, -3),
         ],
     )
-    def test_is_coordinate_not_available(self, robot_platform_fixture, x_axis, y_axis):
-        assert not robot_platform_fixture.is_coordinate_available(x_axis=x_axis, y_axis=y_axis)
+    def test_is_coordinate_not_available(
+        self, robot_platform_fixture, x_axis, y_axis
+    ):
+        assert not robot_platform_fixture.is_coordinate_available(
+            x_axis=x_axis, y_axis=y_axis
+        )

@@ -28,10 +28,13 @@ class TestRobot:
             (1, 2, Direction.SOUTH.name),
         ],
     )
-    def test_place(self,robot_platform_fixture, x_axis, y_axis, face):
+    def test_place(self, robot_platform_fixture, x_axis, y_axis, face):
         test_robot = Robot()
         test_robot.place(
-            x_axis=x_axis, y_axis=y_axis, facing=face, platform=robot_platform_fixture
+            x_axis=x_axis,
+            y_axis=y_axis,
+            facing=face,
+            platform=robot_platform_fixture,
         )
 
         assert test_robot.x_axis == x_axis
@@ -50,7 +53,10 @@ class TestRobot:
 
         test_robot = Robot()
         test_robot.place(
-            x_axis=x_axis, y_axis=y_axis, facing=face, platform=robot_platform_fixture
+            x_axis=x_axis,
+            y_axis=y_axis,
+            facing=face,
+            platform=robot_platform_fixture,
         )
         assert test_robot.x_axis == None
         assert test_robot.y_axis == None
@@ -61,24 +67,24 @@ class TestRobot:
         "platform, current_face, expected_face",
         [
             (
-                    robot_platform_fixture,
-                    Direction.EAST.name,
-                    Direction.NORTH.name,
+                robot_platform_fixture,
+                Direction.EAST.name,
+                Direction.NORTH.name,
             ),
             (
-                    robot_platform_fixture,
-                    Direction.SOUTH.name,
-                    Direction.EAST.name,
+                robot_platform_fixture,
+                Direction.SOUTH.name,
+                Direction.EAST.name,
             ),
             (
-                    robot_platform_fixture,
-                    Direction.WEST.name,
-                    Direction.SOUTH.name,
+                robot_platform_fixture,
+                Direction.WEST.name,
+                Direction.SOUTH.name,
             ),
             (
-                    robot_platform_fixture,
-                    Direction.NORTH.name,
-                    Direction.WEST.name,
+                robot_platform_fixture,
+                Direction.NORTH.name,
+                Direction.WEST.name,
             ),
             (None, Direction.NORTH.name, Direction.NORTH.name),
         ],
@@ -94,24 +100,24 @@ class TestRobot:
         "platform, current_face, expected_face",
         [
             (
-                    robot_platform_fixture,
-                    Direction.NORTH.name,
-                    Direction.EAST.name,
+                robot_platform_fixture,
+                Direction.NORTH.name,
+                Direction.EAST.name,
             ),
             (
-                    robot_platform_fixture,
-                    Direction.EAST.name,
-                    Direction.SOUTH.name,
+                robot_platform_fixture,
+                Direction.EAST.name,
+                Direction.SOUTH.name,
             ),
             (
-                    robot_platform_fixture,
-                    Direction.SOUTH.name,
-                    Direction.WEST.name,
+                robot_platform_fixture,
+                Direction.SOUTH.name,
+                Direction.WEST.name,
             ),
             (
-                    robot_platform_fixture,
-                    Direction.WEST.name,
-                    Direction.NORTH.name,
+                robot_platform_fixture,
+                Direction.WEST.name,
+                Direction.NORTH.name,
             ),
             (None, Direction.NORTH.name, Direction.NORTH.name),
         ],
@@ -134,7 +140,7 @@ class TestRobot:
         ],
     )
     def test_move(
-            self, robot_fixture, platform, face, expected_x_axis, expected_y_axis
+        self, robot_fixture, platform, face, expected_x_axis, expected_y_axis
     ):
         if not platform:
             robot_fixture.platform = platform

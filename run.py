@@ -20,12 +20,16 @@ def main():
     if args.file and args.file.endswith(".txt"):
         with open(args.file) as file:
             for user_input in file:
-                execute_commands(user_input=user_input, robot=robot, platform=platform)
+                execute_commands(
+                    user_input=user_input, robot=robot, platform=platform
+                )
     else:
         while not isinstance(command, ReportCommand):
             # Get User Input
             user_input = input("Enter command:\t")
-            execute_commands(user_input=user_input, robot=robot, platform=platform)
+            execute_commands(
+                user_input=user_input, robot=robot, platform=platform
+            )
 
 
 def execute_commands(user_input, robot, platform):

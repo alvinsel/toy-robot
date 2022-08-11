@@ -5,8 +5,8 @@ class Platform(object):
 
     def is_coordinate_available(self, x_axis, y_axis):
         if (
-                self.platform_height >= y_axis >= 0
-                and self.platform_width >= x_axis >= 0
+            self.platform_height >= y_axis >= 0
+            and self.platform_width >= x_axis >= 0
         ):
             return True
 
