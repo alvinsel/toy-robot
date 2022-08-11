@@ -22,36 +22,35 @@ class TestRobot:
         return test_robot
 
     @pytest.mark.parametrize(
-        "x_axis, y_axis, face, platform",
+        "x_axis, y_axis, face",
         [
-            (1, 1, Direction.NORTH.name, robot_platform_fixture),
-            (1, 2, Direction.SOUTH.name, robot_platform_fixture),
+            (1, 1, Direction.NORTH.name),
+            (1, 2, Direction.SOUTH.name),
         ],
     )
-    def test_place(self, x_axis, y_axis, face, platform):
-
+    def test_place(self,robot_platform_fixture, x_axis, y_axis, face):
         test_robot = Robot()
         test_robot.place(
-            x_axis=x_axis, y_axis=y_axis, facing=face, platform=platform
+            x_axis=x_axis, y_axis=y_axis, facing=face, platform=robot_platform_fixture
         )
 
         assert test_robot.x_axis == x_axis
         assert test_robot.y_axis == y_axis
         assert test_robot.facing == face
-        assert test_robot.platform == platform
+        assert test_robot.platform == robot_platform_fixture
 
     @pytest.mark.parametrize(
-        "x_axis, y_axis, face, platform",
+        "x_axis, y_axis, face",
         [
-            (6, 6, Direction.NORTH.name, robot_platform_fixture),
-            (10, 10, Direction.SOUTH.name, robot_platform_fixture),
+            (6, 6, Direction.NORTH.name),
+            (10, 10, Direction.SOUTH.name),
         ],
     )
-    def test_place(self, x_axis, y_axis, face, platform):
+    def test_not_place(self, robot_platform_fixture, x_axis, y_axis, face):
 
         test_robot = Robot()
         test_robot.place(
-            x_axis=x_axis, y_axis=y_axis, facing=face, platform=platform
+            x_axis=x_axis, y_axis=y_axis, facing=face, platform=robot_platform_fixture
         )
         assert test_robot.x_axis == None
         assert test_robot.y_axis == None
