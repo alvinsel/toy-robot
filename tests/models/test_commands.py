@@ -2,9 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from models.commands import (
-    CommandParser,
-)
+from models.commands import UserCommand
 from models.platform import Platform
 from models.robot import Robot
 from utils.enums import Direction, Commands
@@ -49,8 +47,7 @@ class TestCommand:
         robot_fixture,
         robot_platform_fixture,
     ):
-        command_parser = CommandParser()
-        command = command_parser.parse_command(user_command)
+        command = UserCommand.parse_command(user_command)
         command.invoke(robot=robot_fixture, platform=robot_platform_fixture)
 
         robot_fixture.actions[expected_call].assert_called()
@@ -62,8 +59,7 @@ class TestCommand:
     def test_command_parser_no_action(
         self, user_command, robot_fixture, robot_platform_fixture
     ):
-        command_parser = CommandParser()
-        command = command_parser.parse_command(user_command)
+        command = UserCommand.parse_command(user_command)
         command.invoke(robot=robot_fixture, platform=robot_platform_fixture)
 
         for action, _ in robot_fixture.actions.items():
@@ -82,17 +78,13 @@ class TestCommand:
     def test_command_parser_no_robot_or_platform(
         self, user_command, expected_call, robot_fixture
     ):
-        command_parser = CommandParser()
-        command = command_parser.parse_command(user_command)
-        command.invoke(robot=None, platform=None)
+        with pytest.raises(ValueError):
+            command = UserCommand.parse_command(user_command)
+            command.invoke(robot=None, platform=None)
 
-        assert not robot_fixture.actions[expected_call].called
-
-    def test_command_parser_place_not_robot_or_platform(self, robot_fixture):
-        command_parser = CommandParser()
-        command = command_parser.parse_command(
-            f"{Commands.PLACE.name} 0,0,{Direction.NORTH.name}"
-        )
-        command.invoke(robot="NotARobot", platform="NotAPlatform")
-
-        assert not robot_fixture.actions["place"].called
+    def test_command_parser_place_with_robot_no_platform(self, robot_fixture):
+        with pytest.raises(ValueError):
+            command = UserCommand.parse_command(
+                f"{Commands.PLACE.name} 0,0,{Direction.NORTH.name}"
+            )
+            command.invoke(robot=robot_fixture, platform="NotAPlatform")

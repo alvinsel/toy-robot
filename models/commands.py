@@ -5,9 +5,82 @@ from models.platform import Platform
 from models.robot import Robot
 
 
-class CommandParser:
+class RobotCommand:
+    """Command base class"""
+
+    def __init__(self, command: str) -> None:
+        self.command = command
+
+    def invoke(self, *args, **kwargs):
+        """Executes the commands in the subclasses"""
+        robot = kwargs.get("robot")
+        if not robot or not isinstance(robot, Robot):
+            raise ValueError("NO ROBOT FOUND")
+        return
+
+
+class PlaceCommand(RobotCommand):
+    def invoke(self, *args, **kwargs):
+        super().invoke(*args, **kwargs)
+        platform = kwargs.get("platform")
+
+        # Makes sure if robot and platform is the right type
+        if not platform or not isinstance(platform, Platform):
+            raise ValueError("NO PLATFORM FOUND")
+
+        # Regex Command Check
+        result = re.search(Config.PLACE_PATTERN, self.command)
+        if not result:
+            return None
+        # Put valid commands in variables
+        x_axis, y_axis, facing = (
+            int(result.group(2)),
+            int(result.group(3)),
+            result.group(4),
+        )
+
+        # Place the robot object
+        kwargs["robot"].place(
+            x_axis=x_axis, y_axis=y_axis, facing=facing, platform=platform
+        )
+
+
+class MoveCommand(RobotCommand):
+    def invoke(self, *args, **kwargs):
+        super().invoke(*args, **kwargs)
+        # Move the robot object towards the direction he is facing
+        kwargs["robot"].move()
+
+
+class LeftCommand(RobotCommand):
+    def invoke(self, *args, **kwargs):
+        super().invoke(*args, **kwargs)
+        # Move the robot face to the left
+        kwargs["robot"].left()
+
+
+class RightCommand(RobotCommand):
+    def invoke(self, *args, **kwargs):
+        super().invoke(*args, **kwargs)
+        # Move the robot face to the right
+        kwargs["robot"].right()
+
+
+class ReportCommand(RobotCommand):
+    def invoke(self, *args, **kwargs):
+        super().invoke(*args, **kwargs)
+        # Show the robot state
+        kwargs["robot"].report()
+
+
+class UserCommand:
     @staticmethod
-    def parse_command(command):
+    def execute_command(user_input: str, robot: Robot, platform: Platform) -> None:
+        command = UserCommand.parse_command(user_input)
+        command.invoke(robot=robot, platform=platform)
+
+    @staticmethod
+    def parse_command(command: str) -> RobotCommand:
         """Checks the user input command and return the right class"""
         initial_token = command.strip()
         if initial_token:
@@ -21,92 +94,3 @@ class CommandParser:
         }
         return commands.get(initial_token, RobotCommand(command))
 
-
-class RobotCommand:
-    """Command base class"""
-
-    def __init__(self, command):
-        self.command = command
-
-    def invoke(self, *args, **kwargs):
-        """Executes the commands in the subclasses"""
-        return
-
-
-class PlaceCommand(RobotCommand):
-    def invoke(self, *args, **kwargs):
-        robot = kwargs.get("robot")
-        platform = kwargs.get("platform")
-
-        # Validates if robot and platform is existing
-        if not robot and not platform:
-            return
-
-        # Makes sure if robot and platform is the right type
-        if not isinstance(robot, Robot) or not isinstance(platform, Platform):
-            return
-
-        # Regex Command Check
-        result = re.search(Config.PLACE_PATTERN, self.command)
-        if not result:
-            return
-
-        # Put valid commands in variables
-        x_axis, y_axis, facing = (
-            int(result.group(2)),
-            int(result.group(3)),
-            result.group(4),
-        )
-
-        # Place the robot object
-        kwargs.get("robot").place(
-            x_axis=x_axis, y_axis=y_axis, facing=facing, platform=platform
-        )
-
-
-class MoveCommand(RobotCommand):
-    def invoke(self, *args, **kwargs):
-        robot = kwargs.get("robot")
-
-        # Makes sure if robot is the right type
-        if not robot or not isinstance(robot, Robot):
-            return
-
-        # Move the robot object towards the direction he is facing
-        robot.move()
-
-
-class LeftCommand(RobotCommand):
-    def invoke(self, *args, **kwargs):
-        robot = kwargs.get("robot")
-
-        # Makes sure if robot is the right type
-        if not robot or not isinstance(robot, Robot):
-            return
-
-        # Move the robot face to the left
-        robot.left()
-
-
-class RightCommand(RobotCommand):
-    def invoke(self, *args, **kwargs):
-        robot = kwargs.get("robot")
-
-        # Makes sure if robot is the right type
-        if not robot or not isinstance(robot, Robot):
-            return
-
-        # Move the robot face to the right
-        robot.right()
-
-
-class ReportCommand(RobotCommand):
-    def invoke(self, *args, **kwargs):
-        robot = kwargs.get("robot")
-
-        # Makes sure if robot is the right type
-        if not robot or not isinstance(robot, Robot):
-            return
-
-        # Show the robot state
-        robot.report()

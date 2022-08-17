@@ -1,0 +1,2 @@
+PLACE 20,20,1,NORTH
+Output: None,None,None
