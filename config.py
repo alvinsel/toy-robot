@@ -5,3 +5,6 @@ class Config:
     PLATFORM_SIZE_Y = 5  # Y Axis
 
     PLACE_PATTERN = r"^(PLACE)\s([0-9]+)\,([0-9]+)\,(NORTH|EAST|SOUTH|WEST)$"
+    OUTPUT_PATTERN = (
+        r"^(Output:)\s([0-9]+)\,([0-9]+)\,(NORTH|EAST|SOUTH|WEST)$"
+    )
