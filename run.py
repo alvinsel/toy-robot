@@ -1,7 +1,7 @@
 import argparse
 
 from config import Config
-from models.commands import ReportCommand, UserCommand
+from models.commands import UserCommand
 from models.platform import Platform
 from models.robot import Robot
 from utils.enums import Commands

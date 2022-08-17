@@ -11,7 +11,9 @@ class Robot(object):
         self.facing = None
         self.platform = None
 
-    def place(self, x_axis: int, y_axis: int, facing: str, platform: Platform) -> None:
+    def place(
+        self, x_axis: int, y_axis: int, facing: str, platform: Platform
+    ) -> None:
         """Sets the robot initial state"""
         if platform:
             if platform.is_coordinate_available(x_axis=x_axis, y_axis=y_axis):

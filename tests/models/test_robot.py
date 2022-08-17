@@ -58,10 +58,10 @@ class TestRobot:
             facing=face,
             platform=robot_platform_fixture,
         )
-        assert test_robot.x_axis == None
-        assert test_robot.y_axis == None
-        assert test_robot.facing == None
-        assert test_robot.platform == None
+        assert test_robot.x_axis is None
+        assert test_robot.y_axis is None
+        assert test_robot.facing is None
+        assert test_robot.platform is None
 
     @pytest.mark.parametrize(
         "platform, current_face, expected_face",

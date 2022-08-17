@@ -75,7 +75,9 @@ class ReportCommand(RobotCommand):
 
 class UserCommand:
     @staticmethod
-    def execute_command(user_input: str, robot: Robot, platform: Platform) -> None:
+    def execute_command(
+        user_input: str, robot: Robot, platform: Platform
+    ) -> None:
         command = UserCommand.parse_command(user_input)
         command.invoke(robot=robot, platform=platform)
 
@@ -93,4 +95,3 @@ class UserCommand:
             "REPORT": ReportCommand(command),
         }
         return commands.get(initial_token, RobotCommand(command))
-
